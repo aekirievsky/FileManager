@@ -22,7 +22,7 @@ public:
 	}
 
 	void showDrives(const std::string& path, int tabs = 0) {
-		for (const auto& drive : fs::recursive_directory_iterator(path)) {
+		for (const auto& drive : fs::directory_iterator(path)) {
 			/*for (int i = 0; i < tabs; i++)
 			{
 				std::cout << '\t';
@@ -41,7 +41,7 @@ public:
 		}
 	}
 
-	void deleteFolder(const std::string& oldPath, const std::string newPath) {
+	void renameFolder(const std::string& oldPath, const std::string newPath) {
 		if (fs::exists(oldPath))
 		{
 			fs::rename(oldPath, newPath);
@@ -49,6 +49,18 @@ public:
 		else {
 			std::cout << "Folder is not exists";
 		}
+	}
+
+	void deleteFolder(const std::string& path) {
+		if (fs::exists(path))
+		{
+			fs::remove_all(path);
+		}
+		else
+		{
+			std::cout << "Folder is not exists" << std::endl;
+		}
+
 	}
 
 	void copyFolder(const std::string& sourcePath, std::string& destinationPath) {
