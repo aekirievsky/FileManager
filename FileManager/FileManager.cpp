@@ -4,9 +4,9 @@
 
 int main()
 {
-	FileManager manager;
-	manager.showCurrentDirectory();
-	std::string path{ "C:/Users/itstep" };
+	std::string path{ "D:\ExampleGit" };
+	FileManager manager(path);
+	
 	manager.showDrives(path);
 
 	return 0;

@@ -15,6 +15,8 @@ public:
 	FileManager() {
 		fs::current_path("C:/");
 	}
+	FileManager(fs::path(path)) {}
+
 	void showCurrentDirectory() {
 		std::cout << "Current directory = " << fs::current_path() << std::endl;
 	}
@@ -68,10 +70,7 @@ public:
 			}
 		}
 	}
-};
-
 
 	~FileManager() = default;
-
 };
 
