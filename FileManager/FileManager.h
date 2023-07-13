@@ -4,6 +4,7 @@
 #include <experimental/filesystem>
 #include <iostream>
 #include <conio.h>
+#include<fstream>
 
 
 
@@ -38,6 +39,7 @@ public:
 		}
 		else {
 			fs::create_directory(path);
+			std::cout << "Successfully" << std::endl;
 		}
 	}
 
@@ -45,6 +47,7 @@ public:
 		if (fs::exists(oldPath))
 		{
 			fs::rename(oldPath, newPath);
+			std::cout << "Successfully" << std::endl;
 		}
 		else {
 			std::cout << "Folder is not exists";
@@ -55,6 +58,7 @@ public:
 		if (fs::exists(path))
 		{
 			fs::remove_all(path);
+			std::cout << "Successfully" << std::endl;
 		}
 		else
 		{
@@ -64,7 +68,16 @@ public:
 	}
 
 	void copyFolder(const std::string& sourcePath, std::string& destinationPath) {
-		fs::copy(sourcePath, destinationPath, fs::copy_options::recursive);
+		if (fs::exists(sourcePath))
+		{
+			fs::copy(sourcePath, destinationPath, fs::copy_options::recursive);
+			std::cout << "Successfully" << std::endl;
+		}
+		else
+		{
+			std::cout << "Folder is not exists" << std::endl;
+		}
+
 	}
 
 	uintmax_t calculateFolderSize(const std::string& path) {
@@ -75,12 +88,32 @@ public:
 		}
 		return totalSize;
 	}
+
 	void searchFilesByMask(const std::string& path, const std::string& mask) {
 		for (const auto& dirEntry : fs::recursive_directory_iterator(path)) {
 			if (fs::is_regular_file(dirEntry) && dirEntry.path().extension() == mask) {
 				std::cout << dirEntry.path().string() << std::endl;
 			}
 		}
+	}
+
+	void createFile(const std::string& fileName) {
+		std::ofstream file(fileName);
+		if (file.is_open())
+		{
+			for (int i = 0; i < 10000; i++)
+			{
+				file << "Example Text!!!";
+			}
+			std::cout << "File is created: " << fileName << std::endl;
+			file.close();
+		}
+		else {
+			std::cout << "File is not created" << std::endl;
+		}
+
+
+
 	}
 
 	~FileManager() = default;
