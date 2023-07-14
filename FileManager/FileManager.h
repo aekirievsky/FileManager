@@ -5,6 +5,7 @@
 #include <iostream>
 #include <conio.h>
 #include<fstream>
+#include<iomanip>
 
 
 
@@ -19,7 +20,7 @@ public:
 	FileManager(fs::path(path)) {}
 
 	void showCurrentDirectory() {
-		std::cout << "Current directory = " << fs::current_path() << std::endl;
+		std::cout << "\t\t" << "Current directory = " << fs::current_path() << std::endl;
 	}
 
 	void showDrives(const std::string& path, int tabs = 0) {
@@ -29,17 +30,17 @@ public:
 				std::cout << '\t';
 			}*/
 			//showDrives(drive.path().string(), tabs + 1);
-			std::cout << drive.path().string() << std::endl;
+			std::cout << "\t\t" << drive.path().string() << std::endl;
 		}
 	}
 
 	void createFolder(const std::string& path) {
 		if (fs::exists(path)) {
-			std::cout << "Folder exists" << std::endl;
+			std::cout << "\t\t" << "Folder exists" << std::endl;
 		}
 		else {
 			fs::create_directory(path);
-			std::cout << "Successfully" << std::endl;
+			std::cout << "\t\t" << "Successfully" << std::endl;
 		}
 	}
 
@@ -47,10 +48,10 @@ public:
 		if (fs::exists(oldPath))
 		{
 			fs::rename(oldPath, newPath);
-			std::cout << "Successfully" << std::endl;
+			std::cout << "\t\t" << "Successfully" << std::endl;
 		}
 		else {
-			std::cout << "Folder is not exists";
+			std::cout << "\t\t" << "Folder is not exists";
 		}
 	}
 
@@ -58,11 +59,11 @@ public:
 		if (fs::exists(path))
 		{
 			fs::remove_all(path);
-			std::cout << "Successfully" << std::endl;
+			std::cout << "\t\t" << "Successfully" << std::endl;
 		}
 		else
 		{
-			std::cout << "Folder is not exists" << std::endl;
+			std::cout << "\t\t" << "Folder is not exists" << std::endl;
 		}
 
 	}
@@ -71,11 +72,11 @@ public:
 		if (fs::exists(sourcePath))
 		{
 			fs::copy(sourcePath, destinationPath, fs::copy_options::recursive);
-			std::cout << "Successfully" << std::endl;
+			std::cout << "\t\t" << "Successfully" << std::endl;
 		}
 		else
 		{
-			std::cout << "Folder is not exists" << std::endl;
+			std::cout << "\t\t" << "Folder is not exists" << std::endl;
 		}
 
 	}
@@ -92,7 +93,7 @@ public:
 	void searchFilesByMask(const std::string& path, const std::string& mask) {
 		for (const auto& dirEntry : fs::recursive_directory_iterator(path)) {
 			if (fs::is_regular_file(dirEntry) && dirEntry.path().extension() == mask) {
-				std::cout << dirEntry.path().string() << std::endl;
+				std::cout << "\t\t" << dirEntry.path().string() << std::endl;
 			}
 		}
 	}
@@ -105,11 +106,11 @@ public:
 			{
 				file << "Example Text!!!";
 			}
-			std::cout << "File is created: " << fileName << std::endl;
+			std::cout << "\t\t" << "File is created: " << fileName << std::endl;
 			file.close();
 		}
 		else {
-			std::cout << "File is not created" << std::endl;
+			std::cout << "\t\t" << "File is not created" << std::endl;
 		}
 
 
